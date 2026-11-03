@@ -33,19 +33,10 @@ existing binaries while preserving Tailscale state.
 
 ## Uninstall
 
-Remove the Tailscale binaries and systemd service with:
+Remove the Tailscale binaries, systemd service, and stored state with:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/dylanjphelps/steamos-tailscale-installer/main/uninstall-tailscale.sh | bash
-```
-
-By default, the script preserves Tailscale state in `/var/lib/tailscale`. To
-remove the state too, download the script and run it with `--purge`:
-
-```sh
-curl -fsSLO https://raw.githubusercontent.com/dylanjphelps/steamos-tailscale-installer/main/uninstall-tailscale.sh
-bash uninstall-tailscale.sh --purge
-rm uninstall-tailscale.sh
 ```
 
 ## Requirements

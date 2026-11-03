@@ -13,11 +13,8 @@ die() {
 command -v sudo >/dev/null || die "sudo is required"
 command -v systemctl >/dev/null || die "systemctl is required"
 
-PURGE_STATE=false
-if [[ "${1:-}" == "--purge" ]]; then
-  PURGE_STATE=true
-elif [[ $# -gt 0 ]]; then
-  die "Usage: $0 [--purge]"
+if [[ $# -gt 0 ]]; then
+  die "This script does not accept arguments."
 fi
 
 if sudo systemctl cat tailscaled.service >/dev/null 2>&1; then
@@ -28,11 +25,6 @@ sudo rm -f "$SERVICE_FILE"
 sudo systemctl daemon-reload
 
 rm -rf "$INSTALL_DIR"
+sudo rm -rf "$STATE_DIR"
 
-if [[ "$PURGE_STATE" == true ]]; then
-  sudo rm -rf "$STATE_DIR"
-  printf 'Removed Tailscale binaries, service, and state.\n'
-else
-  printf 'Removed Tailscale binaries and service. State was preserved in %s.\n' "$STATE_DIR"
-  printf 'To remove the state as well, run: %s --purge\n' "$0"
-fi
+printf 'Removed Tailscale binaries, service, and state.\n'
